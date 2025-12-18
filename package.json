@@ -1,0 +1,16 @@
+{
+  "name": "tree-sitter-systemd",
+  "version": "0.1.0",
+  "description": "Tree-sitter grammar for systemd unit files",
+  "main": "bindings/node",
+  "scripts": {
+    "generate": "tree-sitter generate",
+    "test": "tree-sitter test"
+  },
+  "keywords": [
+    "tree-sitter",
+    "systemd"
+  ],
+  "author": "Benny",
+  "license": "MIT"
+}
