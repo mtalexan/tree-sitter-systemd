@@ -34,7 +34,7 @@ module.exports = grammar({
     section_header: _ =>
       token(seq(
         "[",
-        /[A-Za-z][A-Za-z0-9]*/,
+        /[A-Za-z][A-Za-z0-9 -]*/,
         "]"
       )),
 
@@ -78,9 +78,22 @@ module.exports = grammar({
         )
       )),
 
-    // Everything until end-of-line or comment
+    // Value supporting backslash-newline line continuations
+    // e.g. ExecStart=/bin/foo \\
+    //           --option bar
     unquoted_value: _ =>
-      token(/[^#;\n][^\n]*/),
+      token(
+        seq(
+          /[^#;\n]/,
+          repeat(
+            choice(
+              /[^\\\n]/,
+              /\\[^\n]/,
+              seq(/\\/, /\n/, /[ \t]*/)
+            )
+          )
+        )
+      ),
   }
 });
 
